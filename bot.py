@@ -1,6 +1,7 @@
 import yaml
 import time
 import datetime
+import platform
 from selenium import webdriver
 from selenium.webdriver.chrome.webdriver import WebDriver
 from selenium.webdriver.common.by import By
@@ -16,6 +17,24 @@ from selenium.webdriver.remote.webelement import WebElement
 from rich.console import Console  # Pretty printing
 
 console = Console()
+
+
+def instantiate_driver() -> WebDriver:
+    options = webdriver.ChromeOptions()
+    options.add_experimental_option("useAutomationExtension", False)
+    options.add_experimental_option("excludeSwitches", ["enable-automation"])
+    if platform.system() == "Windows":
+        user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36"
+    elif platform.system() == "Darwin":  # MacOS
+        user_agent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36"
+    else:  # Linux
+        user_agent = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.50 Safari/537.36"
+    options.add_argument(f"user-agent={user_agent}")
+    options.add_argument("--no-sandbox")
+    # options.add_argument("--headless")
+    options.add_argument("--disable-gpu")
+    options.add_argument("--allow-running-insecure-content")
+    return webdriver.Chrome(options=options)
 
 
 def waited_find_element(driver, by: By, value: str, timeout: int = 2) -> WebElement:
@@ -134,9 +153,7 @@ def main():
     input("Press any key to continue...")
     while True:
         try:
-            chrome_options = Options()
-            # chrome_options.add_argument("--headless")
-            driver = webdriver.Chrome(options=chrome_options)
+            driver = instantiate_driver()
             for url, oe_time in url_oe_time_pairs:
                 driver.get(url)
                 enroll(
