@@ -16,6 +16,8 @@ pip install -r requirements.txt
 
 Then everything should be installed.
 
+(Also make sure you have chrome browser installed).
+
 ## Config File
 We specify our user id and password and what sports we would like to enroll for
 in the config.yaml file.
