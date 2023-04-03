@@ -37,7 +37,7 @@ def instantiate_driver() -> WebDriver:
     return webdriver.Chrome(options=options)
 
 
-def waited_find_element(driver, by: By, value: str, timeout: int = 2) -> WebElement:
+def waited_find_element(driver, by: By, value: str, timeout: int = 6) -> WebElement:
     return WebDriverWait(driver, timeout).until(
         EC.presence_of_element_located((by, value))
     )
@@ -121,7 +121,7 @@ def enroll(
         if datetime.datetime.now() >= oe_time:
             print("Clicking enroll button...")
             click_enroll_button(driver)
-            time.sleep(100)
+            time.sleep(2)
             break
     print("Finished!")
 
