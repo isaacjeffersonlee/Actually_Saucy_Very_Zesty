@@ -1,0 +1,16 @@
+asvz_id: "changeme"
+asvz_password: "changeme"
+datetime_format: "%d.%m.%Y %H:%M"
+urls: # Replace these with your own urls
+  - "https://schalter.asvz.ch/tn/lessons/493925"
+  - "https://schalter.asvz.ch/tn/lessons/440705"
+  - "https://schalter.asvz.ch/tn/lessons/434726"
+
+# Make sure these are in the format specified by time_format above.
+# Also make sure for every url above, there is a matching enrollment time below.
+# The bot will throw an error if the number of urls does not match the number
+# of enrollment times.
+enrollment_times: # Replace these with the online enrollment times of the above urls.
+  - "03.04.2023 11:05"
+  - "03.04.2023 11:15"
+  - "04.04.2023 07:45"
