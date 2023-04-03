@@ -1,6 +1,8 @@
 # (A)ctually (S)aucy (V)ery (Z)esty Bot
 
 ## Installation
+0. First make sure chrome browser is installed.
+
 1. Install the repo:
 ```
 git clone https://github.com/isaacjeffersonlee/Actually_Saucy_Very_Zesty
@@ -9,14 +11,9 @@ git clone https://github.com/isaacjeffersonlee/Actually_Saucy_Very_Zesty
 this in a separate python virtual environment).
 ```
 cd Actually_Saucy_Very_Zesty/
-python -m venv asvz_env
-source asvz_env/bin/activate
 pip install -r requirements.txt
 ```
-
 Then everything should be installed.
-
-(Also make sure you have chrome browser installed).
 
 ## Config File
 We specify our user id and password and what sports we would like to enroll for
