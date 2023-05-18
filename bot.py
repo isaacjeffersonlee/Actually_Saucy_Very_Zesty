@@ -118,7 +118,8 @@ def enroll(
     login(driver, asvz_id=asvz_id, asvz_password=asvz_password)
     while True:
         time.sleep(0.01)
-        if datetime.datetime.now() >= oe_time:
+        if datetime.datetime.now() + 0.05 >= oe_time:
+            driver.refresh()
             print("Clicking enroll button...")
             click_enroll_button(driver)
             time.sleep(2)
@@ -176,5 +177,42 @@ def main():
             time.sleep(2)
 
 
+def refresh_enroll(url: str, sleep_time_between_refreshes: float = 0.1):
+    """Oh no! I missed the original enrollment!
+
+    Refreshes the url in a loop. When a place becomes free, enrolls.
+    """
+    with open("config.yaml", "r") as f:
+        config = yaml.safe_load(f)
+
+    asvz_id = str(config["asvz_id"])
+    asvz_password = str(config["asvz_password"])
+    while True:
+        try:
+            driver = instantiate_driver()
+            driver.get(url)
+
+            click_login_button(driver)
+            login(driver, asvz_id=asvz_id, asvz_password=asvz_password)
+            time.sleep(3)
+            while True:
+                time.sleep(sleep_time_between_refreshes)
+                click_enroll_button(driver)
+                driver.refresh()
+
+            time.sleep(100)
+            driver.quit()
+            console.log("Finished enrolling!")
+            break
+
+        except NoSuchWindowException:  # If we prematurely close the browser window
+            console.log(
+                "WARNING: Browser window was closed before the bot finished enrolling!"
+            )
+            console.log("Retrying...")
+            time.sleep(2)
+
+
 if __name__ == "__main__":
-    main()
+    # main()
+    refresh_enroll(url="https://schalter.asvz.ch/tn/lessons/418876")
