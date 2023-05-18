@@ -214,5 +214,5 @@ def refresh_enroll(url: str, sleep_time_between_refreshes: float = 0.1):
 
 
 if __name__ == "__main__":
-    # main()
-    refresh_enroll(url="https://schalter.asvz.ch/tn/lessons/418876")
+    main()
+    # refresh_enroll(url="https://schalter.asvz.ch/tn/lessons/418876")
